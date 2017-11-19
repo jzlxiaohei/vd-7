@@ -1,0 +1,53 @@
+.marginAtomic(@number) {
+  .mt-@{number} {
+    margin-top: @number*1px !important;
+  }
+
+  .mb-@{number} {
+    margin-bottom: @number*1px !important;
+  }
+
+  .mtb-@{number} {
+    margin: @number*1px 0 !important;
+  }
+
+  .ml-@{number} {
+    margin-left: @number*1px !important;
+  }
+
+  .mr-@{number} {
+    margin-right: @number*1px !important;
+  }
+
+  .mlr-@{number} {
+    margin: 0 @number*1px !important;
+  }
+
+  .m-@{number} {
+    margin: @number*1px !important;
+  }
+}
+
+
+.marginAtomic(5);
+.marginAtomic(10);
+.marginAtomic(15);
+.marginAtomic(20);
+
+
+.hide {
+  display: none !important;
+}
+
+.tc {
+  text-align: center;
+}
+
+
+.flex {
+  display: flex;
+}
+.danger {
+  color: #f50;
+}
+

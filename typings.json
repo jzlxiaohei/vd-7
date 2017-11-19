@@ -1,0 +1,13 @@
+{
+  "globalDependencies": {
+    "less": "registry:dt/less#0.0.0+20161212190028",
+    "react-router": "registry:dt/react-router#4.0.0+20170323201651",
+    "react-router-dom": "registry:dt/react-router-dom#4.0.0+20170323201651"
+  },
+  "globalDevDependencies": {
+    "jest": "registry:dt/jest#19.2.0+20170312200138",
+    "object-assign": "registry:dt/object-assign#4.0.1+20161119044246",
+    "webpack-dev-server": "registry:dt/webpack-dev-server#1.12.1+20170117213337",
+    "whatwg-fetch": "registry:dt/whatwg-fetch#0.0.0+20161004182750"
+  }
+}

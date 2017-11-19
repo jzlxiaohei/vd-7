@@ -1,0 +1,8 @@
+{
+    "extends": "react-app",
+    "globals": {
+      "__IS_NODE__": true,
+      "__IS_DESIGN__": true,
+      "$" : true
+    }
+}
