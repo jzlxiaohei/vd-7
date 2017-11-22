@@ -50,6 +50,7 @@
     },
     "development": {
       "plugins": [
+          ["react-hot-loader/babel"],
          ["module-resolver", {
           "alias": {
             "config": "./src/config/development"

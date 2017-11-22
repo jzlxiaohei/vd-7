@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { observer, propTypes as MobxPropTypes } from 'mobx-react';
+import { observer } from 'mobx-react';
 import Sortable from 'sortablejs';
 import assign from 'lodash/assign';
 import omit from 'lodash/omit';
@@ -10,7 +10,9 @@ class SortableContainer extends React.Component {
 
   static propTypes = {
     renderItem: PropTypes.func.isRequired,
-    list: MobxPropTypes.arrayOrObservableArray.isRequired, // mobx array
+    list: PropTypes.shape({
+      map: PropTypes.func.isRequired,
+    }).isRequired,
     onEnd: PropTypes.func,
     sortableOptions: PropTypes.object, // see https://github.com/RubaXa/Sortable
   }
