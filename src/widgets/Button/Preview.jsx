@@ -4,7 +4,7 @@ import preview from 'hoc/preview';
 import style from './index.less';
 
 @preview({
-  className: 'v5_button',
+  className: 'v7_button',
   style,
 })
 class Button extends React.Component {

@@ -30,7 +30,7 @@ class RegisterTable {
   // }
 
   create(viewType) {
-    const id = `v5_${shortid.generate()}`;
+    const id = `v7_${shortid.generate()}`;
     const create = this.getCreate(viewType);
     return create(id);
   }

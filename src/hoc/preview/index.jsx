@@ -35,7 +35,7 @@ function widgetDesign(options) {
       }
 
       getClassName = () => {
-        return cns(options.className, 'v5_design-view-edit', {
+        return cns(options.className, 'v7_design-view-edit', {
           selected: this.props.model.selected,
         });
       }
