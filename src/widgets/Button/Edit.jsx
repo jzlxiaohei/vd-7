@@ -20,9 +20,21 @@ class ButtonEdit extends React.Component {
   render() {
     return (
       <Card>
-        <Card.Content header='Button' />
+        <Card.Content>
+          <Card.Header className="edit-card-header">
+            Button
+          </Card.Header>
+        </Card.Content>
         <Card.Content extra>
-          <FormInput model={this.props.model.attr} path="text" onChange={this.handleAttrChange}/>
+          <Card.Header className="edit-card-header">
+            Button
+          </Card.Header>
+          <FormInput
+            model={this.props.model.attr}
+            path="text"
+            onChange={this.handleAttrChange}
+            getValue={(model, path) => model.get(path).v}
+          />
         </Card.Content>
       </Card>
     )

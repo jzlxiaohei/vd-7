@@ -1,8 +1,9 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { extendObservable } from 'mobx';
+// import { onSnapshot, onPatch } from 'mobx-state-tree';
 import WidgetButton from 'widgets/Button';
-import WidgetContainer from 'widgets/Container';
+import registerTable from 'globals/registerTable';
 import './index.less';
 
 
@@ -11,16 +12,19 @@ class DesignPage extends React.Component {
 
   constructor(props) {
     super(props);
-    this.mainContainer = WidgetContainer.create('1');
-    this.button = WidgetButton.create('2');
+    this.mainContainer = registerTable.create('container');
+    this.initMockData();
     extendObservable(this, {
       selectedModel: this.mainContainer,
     });
   }
 
-
-  handleAttrChange = (data) => {
-    console.log(data);
+  initMockData() {
+    this.button = registerTable.create('button');
+    this.mainContainer.push(this.button);
+    // onPatch(this.mainContainer, (e) => {
+    //   console.log(e);
+    // })
   }
 
   render() {

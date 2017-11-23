@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import preview from 'hoc/preview';
-import style from './index.less';
+import style from './style.less';
 
 @preview({
   className: 'v7_button',

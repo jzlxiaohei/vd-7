@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import shortid from 'shortid';
 
 class RegisterTable {
@@ -29,9 +30,16 @@ class RegisterTable {
   //   return this.table[viewType].create;
   // }
 
+  getAllViewTypes() {
+    return _.keys(this.table);
+  }
+
   create(viewType) {
+    if(!(viewType in this.table)) {
+      throw new Error(`can not find viewType:${viewType}. use registerTable.getAllViewTypes to check all existed viewTypes`);
+    }
     const id = `v7_${shortid.generate()}`;
-    const create = this.getCreate(viewType);
+    const create = this.table[viewType].create;
     return create(id);
   }
 

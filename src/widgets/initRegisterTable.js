@@ -1,3 +1,4 @@
+import Container from './Container';
 import Button from './Button';
 
 export default function init(registerTable) {
@@ -5,4 +6,5 @@ export default function init(registerTable) {
     registerTable.clear();
   }
   registerTable.register(Button);
+  registerTable.register(Container);
 }

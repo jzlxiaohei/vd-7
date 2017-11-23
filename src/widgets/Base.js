@@ -1,21 +1,21 @@
 import { types, getParent, destroy } from 'mobx-state-tree';
 import _ from 'lodash';
 
-// const KeyValue = types.model({
-//   key: types.identifier(types.string),
-//   value: types.string,
-// })
+const KeyValue = types.model({
+  k: types.identifier(types.string),
+  v: types.string,
+})
 
 // id, viewType, isContainer 设置了就会变
 const WidgetBase = types.model('WidgetBase', {
   id: types.identifier(types.string),
   viewType: types.string,
   isContainer: types.optional(types.boolean, true),
-  style: types.optional(types.frozen, () => ({})),
-  attr: types.optional(types.frozen, () => ({})),
-  dataAttr: types.optional(types.frozen, () => ({})),
-  cssText: types.optional(types.frozen, ''),
-  jsText: types.optional(types.frozen, ''),
+  style: types.optional(types.map(KeyValue), () => ({})),
+  attr: types.optional(types.map(KeyValue), () => ({})),
+  dataAttr: types.optional(types.map(KeyValue), () => ({})),
+  cssText: types.optional(types.string, ''),
+  jsText: types.optional(types.string, ''),
   children: types.optional(types.array(types.late(() => WidgetBase)), []), // array of WidgetBase, maybe type.late is better,
   selected: types.optional(types.boolean, false),
 })
@@ -56,9 +56,12 @@ const WidgetBase = types.model('WidgetBase', {
       const style = _.assign({}, self.style, _style);
       self.style = style;
     },
-    assignAttr(_attr) {
-      const attr = _.assign({}, self.style, _attr);
-      self.attr = attr;
+    assignAttr(attr) {
+      // const attr = _.assign({}, self.style, _attr);
+      // self.attr = attr;
+      _.forOwn(attr, (val, key) => {
+        self.attr.put({ k:key, v: val });
+      })
     },
     sortChildren(oldIndex, newIndex) {
       // 拖拽排序

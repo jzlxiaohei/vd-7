@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
+import { isObservable } from 'mobx';
 import { hoistStatics } from 'recompose';
 import _ from 'lodash';
 
@@ -12,6 +13,11 @@ export default function formItemHoc(options) {
         model: PropTypes.object.isRequired,
         path: PropTypes.string,
         onChange: PropTypes.func,
+        getValue: PropTypes.func,
+      }
+
+      static defaultProps = {
+        getValue: _.get
       }
 
 
@@ -24,13 +30,16 @@ export default function formItemHoc(options) {
             path,
           });
         } else {
+          if(!isObservable(model)) {
+            throw new Error('model is not Observable, onChange must be provide');
+          }
           _.set(model, path, data.value);
         }
       }
 
       render() {
         const { model, path } = this.props;
-        const value = _.get(model, path);
+        const value = this.props.getValue(model, path)
         const props = {
           model,
           path,
