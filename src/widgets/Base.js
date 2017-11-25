@@ -1,19 +1,19 @@
 import { types, getParent, destroy, detach } from 'mobx-state-tree';
 import _ from 'lodash';
 
-const KeyValue = types.model({
-  k: types.identifier(types.string),
-  v: types.string,
-})
+// const KeyValue = types.model({
+//   k: types.identifier(types.string),
+//   v: types.string,
+// })
 
-// id, viewType, isContainer 设置了就会变
+// id, viewType, isContainer 设置了就不会变
 const WidgetBase = types.model('WidgetBase', {
   id: types.identifier(types.string),
   viewType: types.string,
   isContainer: types.optional(types.boolean, true),
-  style: types.optional(types.map(KeyValue), () => ({})),
+  style: types.optional(types.map(types.string), () => ({})),
   attr: types.optional(types.map(types.string), () => ({})),
-  dataAttr: types.optional(types.map(KeyValue), () => ({})),
+  dataAttr: types.optional(types.map(types.string), () => ({})),
   cssText: types.optional(types.string, ''),
   jsText: types.optional(types.string, ''),
   children: types.optional(types.array(types.late(() => WidgetBase)), []), // array of WidgetBase, maybe type.late is better,
@@ -60,22 +60,26 @@ const WidgetBase = types.model('WidgetBase', {
       destroy(model);
     },
     assignStyle(_style) {
-      const style = _.assign({}, self.style, _style);
-      self.style = style;
+      _.forOwn(_style, (val, key) => {
+        self.style.set(key, val);
+      })
     },
     assignAttr(_attr) {
-      // const attr = _.assign({}, self.style, _attr);
-      // self.attr = attr;
       _.forOwn(_attr, (val, key) => {
         self.attr.set(key, val);
       })
     },
-    sortChildren(oldIndex, newIndex) {
-      // 拖拽排序
-      const list = self.children;
-      const moveItem = list.splice(oldIndex, 1)[0];
-      list.splice(newIndex, 0, moveItem);
+    assignDataAttr(_dataAttr) {
+      _.forOwn(_dataAttr, (val, key) => {
+        self.dataAttr.set(key, val);
+      })
     },
+    // sortChildren(oldIndex, newIndex) {
+    //   // 拖拽排序
+    //   const list = self.children;
+    //   const moveItem = list.splice(oldIndex, 1)[0];
+    //   list.splice(newIndex, 0, moveItem);
+    // },
     reassignChildren(children) {
       self.children = children;
     }

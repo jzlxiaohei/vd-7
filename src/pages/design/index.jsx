@@ -58,7 +58,10 @@ class DesignPage extends React.Component {
     return (
       <div className="design-page" id="design-page">
         <div style={{ height: 400 }}>
-          <TreeView treeRoot={this.mainContainer} />
+          <TreeView
+            treeRoot={this.mainContainer}
+            setSelectedModel
+          />
         </div>
         <div>
         <Iframe url="/preview"
