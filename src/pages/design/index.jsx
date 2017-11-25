@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { extendObservable } from 'mobx';
+import { extendObservable, action } from 'mobx';
 import { getSnapshot, onPatch } from 'mobx-state-tree';
 import Iframe from 'react-iframe';
 import registerTable from 'globals/registerTable';
@@ -18,6 +18,14 @@ class DesignPage extends React.Component {
       selectedModel: this.mainContainer,
     });
   }
+
+  setSelectedModel = action((newSelectedModel) => {
+    if (this.selectedModel) {
+      this.selectedModel.setSelected(false);
+    }
+    newSelectedModel.setSelected(true);
+    this.currentSelectedModel = newSelectedModel;
+  })
 
   componentDidMount() {
     this.initMockData();

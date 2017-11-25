@@ -47,7 +47,9 @@ function widgetDesign(options) {
           'onClick', 'registerTable',
         ]);
         otherProps.className = this.getClassName();
-        otherProps.id = model.id;
+        if(model.attr.id) {
+          otherProps.id = model.attr.id;
+        }
         otherProps.style = getSnapshot(model.style);
         otherProps.onClick = this.handleClick;
 

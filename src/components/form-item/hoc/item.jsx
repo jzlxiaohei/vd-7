@@ -40,7 +40,7 @@ export default function formItemHoc(options) {
 
       render() {
         const { model, path, itemProps } = this.props;
-        const value = this.props.getValue(model, path)
+        const value = this.props.getValue(model, path);
         const props = {
           model,
           path,

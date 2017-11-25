@@ -8,10 +8,8 @@ function create(id) {
     viewType:  viewType,
     isContainer: false,
   });
-  // instance.attr.put({key: 'text', value: 'button'})
   instance.assignAttr({
     text: 'button',
-    id: 'btn'
   })
   return instance;
 }

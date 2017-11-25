@@ -119,21 +119,15 @@ class TreeView extends React.Component {
         generateNodeProps={rowInfo => ({
           subtitle: ()=> {
             const origin = rowInfo.node.origin;
-            return (
-              <FormInput
-                itemProps={{
-                  label: '#',
-                }}
-                model={origin.attr}
-                path="text"
-                onChange={(data) => this.handleSubtitleChange(data, rowInfo.node.origin)}
-                getValue={(model, path) => model.get(path)}
-              />
-            )
+            const id = origin.attr.get('id');
+            if(id) {
+              return `#${id}`;
+            }
+            return '';
           },
           className: 'widget-tree-item',
           onClick: () => {
-              // console.log(rowInfo);
+              // TODO: select rowInfo.node.origin ;
             }
           })
         }
