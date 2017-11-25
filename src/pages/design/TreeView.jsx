@@ -10,6 +10,7 @@ function getTreeData(json, { isRoot = false } = {}) {
     title: json.viewType,
     subtitle: json.viewType,
     expanded: json.expanded,
+    selected: json.selected,
     id: json.id,
     isRoot,
     origin: json,
@@ -47,6 +48,7 @@ class TreeView extends React.Component {
       expanded: PropTypes.bool.isRequired,
       id: PropTypes.string.isRequired,
     }).isRequired,
+    setSelectedModel: PropTypes.func.isRequired,
   }
 
   convertToTreeData() {
@@ -80,9 +82,7 @@ class TreeView extends React.Component {
   }
 
   handleVisibilityToggle = (data) => {
-    console.log(data);
-
-
+    data.node.origin.setExpanded(data.expanded);
   }
 
   nodeCanDrag = item => {
@@ -116,20 +116,24 @@ class TreeView extends React.Component {
         canDrag={this.nodeCanDrag}
         canDrop={this.nodeCanDrop}
         rowHeight={80}
-        generateNodeProps={rowInfo => ({
-          subtitle: ()=> {
-            const origin = rowInfo.node.origin;
-            const id = origin.attr.get('id');
-            if(id) {
-              return `#${id}`;
+        generateNodeProps={rowInfo => {
+          const origin = rowInfo.node.origin;
+          return {
+            subtitle() {
+              const id = origin.attr.get('id');
+              if(id) {
+                return `#${id}`;
+              }
+              return '';
+            },
+            className: rowInfo.node.selected ?
+                `selected widget-tree-item` : 'widget-tree-item',
+            onClick: () => {
+                // TODO: select rowInfo.node.origin ;
+                this.props.setSelectedModel(origin);
+              }
             }
-            return '';
-          },
-          className: 'widget-tree-item',
-          onClick: () => {
-              // TODO: select rowInfo.node.origin ;
-            }
-          })
+          }
         }
       />
     )

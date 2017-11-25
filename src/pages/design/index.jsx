@@ -17,6 +17,7 @@ class DesignPage extends React.Component {
     extendObservable(this, {
       selectedModel: this.mainContainer,
     });
+    this.setSelectedModel(this.mainContainer);
   }
 
   setSelectedModel = action((newSelectedModel) => {
@@ -24,7 +25,7 @@ class DesignPage extends React.Component {
       this.selectedModel.setSelected(false);
     }
     newSelectedModel.setSelected(true);
-    this.currentSelectedModel = newSelectedModel;
+    this.selectedModel = newSelectedModel;
   })
 
   componentDidMount() {
@@ -60,7 +61,7 @@ class DesignPage extends React.Component {
         <div style={{ height: 400 }}>
           <TreeView
             treeRoot={this.mainContainer}
-            setSelectedModel
+            setSelectedModel={this.setSelectedModel}
           />
         </div>
         <div>
