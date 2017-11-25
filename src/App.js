@@ -6,6 +6,9 @@ import {
 } from 'react-router-dom';
 import history from 'globals/history';
 import Design from './pages/design';
+import Preview from './pages/preview';
+
+
 
 class App extends React.Component {
 
@@ -14,6 +17,7 @@ class App extends React.Component {
       <Router history={history}>
         <Switch>
           <Route path="/design" component={Design} />
+          <Route path="/preview" component={Preview} />
         </Switch>
       </Router>
     );

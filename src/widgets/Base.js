@@ -1,4 +1,4 @@
-import { types, getParent, destroy } from 'mobx-state-tree';
+import { types, getParent, destroy, detach } from 'mobx-state-tree';
 import _ from 'lodash';
 
 const KeyValue = types.model({
@@ -12,12 +12,13 @@ const WidgetBase = types.model('WidgetBase', {
   viewType: types.string,
   isContainer: types.optional(types.boolean, true),
   style: types.optional(types.map(KeyValue), () => ({})),
-  attr: types.optional(types.map(KeyValue), () => ({})),
+  attr: types.optional(types.map(types.string), () => ({})),
   dataAttr: types.optional(types.map(KeyValue), () => ({})),
   cssText: types.optional(types.string, ''),
   jsText: types.optional(types.string, ''),
   children: types.optional(types.array(types.late(() => WidgetBase)), []), // array of WidgetBase, maybe type.late is better,
   selected: types.optional(types.boolean, false),
+  expanded: types.optional(types.boolean, true),
 })
 .views(self => {
   return {
@@ -34,11 +35,14 @@ const WidgetBase = types.model('WidgetBase', {
   return {
     postProcessSnapshot(snapshot) {
       return _.omit(snapshot, [
-        'selected'
+        'selected', 'expanded',
       ])
     },
     initConfig(attrConfig, styleConfig) {
       // TODO:
+    },
+    setExpanded(expanded) {
+      self.expanded = expanded;
     },
     setSelected(selected) {
       self.selected = selected;
@@ -47,20 +51,23 @@ const WidgetBase = types.model('WidgetBase', {
       self.children.push(model);
     },
     removeChildByIndex(index) {
-      destroy(self.children[index]);
+      detach(self.children[index]);
     },
     removeChild(model) {
+      detach(model);
+    },
+    destroyChild(model) {
       destroy(model);
     },
     assignStyle(_style) {
       const style = _.assign({}, self.style, _style);
       self.style = style;
     },
-    assignAttr(attr) {
+    assignAttr(_attr) {
       // const attr = _.assign({}, self.style, _attr);
       // self.attr = attr;
-      _.forOwn(attr, (val, key) => {
-        self.attr.put({ k:key, v: val });
+      _.forOwn(_attr, (val, key) => {
+        self.attr.set(key, val);
       })
     },
     sortChildren(oldIndex, newIndex) {
@@ -68,6 +75,9 @@ const WidgetBase = types.model('WidgetBase', {
       const list = self.children;
       const moveItem = list.splice(oldIndex, 1)[0];
       list.splice(newIndex, 0, moveItem);
+    },
+    reassignChildren(children) {
+      self.children = children;
     }
   }
 });

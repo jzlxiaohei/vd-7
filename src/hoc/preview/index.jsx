@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
-import WidgetModel from 'widgets/Base';
+import { getSnapshot } from 'mobx-state-tree';
 import cns from 'classnames';
 import { hoistStatics } from 'recompose';
 import invariant from 'invariant';
@@ -19,7 +19,7 @@ function widgetDesign(options) {
   const className = options.className;
   if (process.env.NODE_ENV !== 'production') {
     invariant(!!className, 'className is required');
-    invariant(!!options.style, "@Page(options): options.style is required, if no style, pls set { style: false}");
+    // invariant(!!options.style, "@Page(options): options.style is required, if no style, pls set { style: false}");
   }
 
   const hoc = (OriginComponent) => {
@@ -29,8 +29,8 @@ function widgetDesign(options) {
       displayName = `WidgetComponent_${options.className}`
 
       static propTypes = {
-        model: PropTypes.instanceOf(WidgetModel),
-        setCurrentSelectedModel: PropTypes.func.isRequired,
+        model: PropTypes.object.isRequired,
+        setCurrentSelectedModel: PropTypes.func,
         registerTable: PropTypes.object.isRequired,
       }
 
@@ -48,19 +48,19 @@ function widgetDesign(options) {
         ]);
         otherProps.className = this.getClassName();
         otherProps.id = model.id;
-        otherProps.style = { ...model.style };
+        otherProps.style = getSnapshot(model.style);
         otherProps.onClick = this.handleClick;
 
         return {
           otherProps,
-          attr: model.attr,
+          attr: getSnapshot(model.attr),
           modelChildren: model.children,
           // modelChildren: toJS(model.children),
         };
       }
 
       renderChild(childModel) {
-        const ShowWidget = this.props.registerTable.getWidget(childModel.viewType);
+        const ShowWidget = this.props.registerTable.getPreview(childModel.viewType);
         return (
           <ShowWidget
             key={childModel.id}
@@ -71,22 +71,12 @@ function widgetDesign(options) {
         );
       }
 
-      handleClick = (e) => {
-        const currentDom = e.currentTarget;
-        if (currentDom.classList.contains('y5-comp-in-design-view')) {
-          if (!e.nativeEvent.$view5_childSelected) {
-            if (!this.props.model.selected) {
-              this.props.setCurrentSelectedModel(this.props.model);
-            }
-            // eslint-disable-next-line no-param-reassign
-            e.nativeEvent.$view5_childSelected = true;
-          }
-        }
+      handleClick = () => {
+
       }
 
 
       render() {
-        // TODO: impl real logic
         const props = this.getProps();
         let childDoms = null;
         if (!this.props.model.ignoreRenderChildren) {

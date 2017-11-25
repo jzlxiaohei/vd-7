@@ -11,13 +11,14 @@ export default function formItemHoc(options) {
     class FormItem extends React.Component {
       static propTypes = {
         model: PropTypes.object.isRequired,
-        path: PropTypes.string,
+        path: PropTypes.string.isRequired,
         onChange: PropTypes.func,
         getValue: PropTypes.func,
+        itemProps: PropTypes.object,
       }
 
       static defaultProps = {
-        getValue: _.get
+        getValue: _.get,
       }
 
 
@@ -38,13 +39,14 @@ export default function formItemHoc(options) {
       }
 
       render() {
-        const { model, path } = this.props;
+        const { model, path, itemProps } = this.props;
         const value = this.props.getValue(model, path)
         const props = {
           model,
           path,
           onChange: this.onChange,
-          value
+          value,
+          itemProps: itemProps || {},
         }
         return <OriginComponent {...props}/>
       }

@@ -8,7 +8,7 @@ import _ from 'lodash';
 class AutoInput extends React.PureComponent {
 
   render() {
-    return <Input {..._.pick(this.props, ['onChange', 'value'])} />
+    return <Input {...this.props.itemProps} {..._.pick(this.props, ['onChange', 'value'])} />
   }
 }
 

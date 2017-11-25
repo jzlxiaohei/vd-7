@@ -23,6 +23,7 @@ class RegisterTable {
   }
 
   getPreview(viewType) {
+    this.checkViewType(viewType);
     return this.table[viewType].Preview;
   }
 
@@ -30,15 +31,18 @@ class RegisterTable {
   //   return this.table[viewType].create;
   // }
 
+  checkViewType(viewType) {
+    if(!(viewType in this.table)) {
+      throw new Error(`can not find viewType:${viewType}. use registerTable.getAllViewTypes to check all existed viewTypes`);
+    }
+  }
+
   getAllViewTypes() {
     return _.keys(this.table);
   }
 
-  create(viewType) {
-    if(!(viewType in this.table)) {
-      throw new Error(`can not find viewType:${viewType}. use registerTable.getAllViewTypes to check all existed viewTypes`);
-    }
-    const id = `v7_${shortid.generate()}`;
+  create(viewType, _id) {
+    const id = _id || `v7_${shortid.generate()}`;
     const create = this.table[viewType].create;
     return create(id);
   }

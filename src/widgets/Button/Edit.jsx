@@ -33,7 +33,7 @@ class ButtonEdit extends React.Component {
             model={this.props.model.attr}
             path="text"
             onChange={this.handleAttrChange}
-            getValue={(model, path) => model.get(path).v}
+            getValue={(model, path) => model.get(path)}
           />
         </Card.Content>
       </Card>

@@ -11,6 +11,7 @@ function create(id) {
   // instance.attr.put({key: 'text', value: 'button'})
   instance.assignAttr({
     text: 'button',
+    id: 'btn'
   })
   return instance;
 }

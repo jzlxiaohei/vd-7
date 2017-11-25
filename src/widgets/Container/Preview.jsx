@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import preview from 'hoc/preview';
-import style from './style.less';
 
 @preview({
-  className: 'v7_button',
-  style,
+  className: 'v7_container',
+  style: false,
 })
-class ButtonPreview extends React.Component {
+class ContainerPreview extends React.Component {
 
   static propTypes = {
     attr: PropTypes.object.isRequired,
@@ -20,10 +19,10 @@ class ButtonPreview extends React.Component {
       <div
         {...props.otherProps}
       >
-        {props.attr.text}
+        {props.childNodes}
       </div>
     );
   }
 }
 
-export default ButtonPreview;
+export default ContainerPreview;
