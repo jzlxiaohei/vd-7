@@ -75,8 +75,8 @@ class DesignPage extends React.Component {
             setSelectedModel={this.setSelectedModel}
           />
         </div>
-        <div>
         {this.renderEditPanel()}
+        <div classNam="iframe-preview">
         <Iframe url="/preview.html/preview"
           width="375px"
           height="450px"

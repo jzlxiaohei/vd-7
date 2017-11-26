@@ -20,10 +20,12 @@ class ButtonEdit extends React.Component {
   render() {
     return (
       <Card>
-        <Card.Content extra>
+        <Card.Content>
           <Card.Header className="edit-card-header">
             Button
           </Card.Header>
+        </Card.Content>
+        <Card.Content extra>
           <FormInput
             model={this.props.model.attr}
             path="text"
