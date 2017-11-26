@@ -25,6 +25,6 @@ yarn-error.log*
 .swap
 *.swp
 dist
-typings
+typings/*
 typings.json
 .vscode
