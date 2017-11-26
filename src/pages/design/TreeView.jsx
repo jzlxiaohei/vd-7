@@ -3,7 +3,8 @@ import { observer } from 'mobx-react';
 import PropTypes from 'prop-types'
 import _ from 'lodash';
 import  SortableTree from 'react-sortable-tree';
-import FormInput from 'comps/form-item/Input';
+import { Button, Popup, Icon } from 'semantic-ui-react'
+import PopConfirm from 'comps/pop-confirm';
 
 function getTreeData(json, { isRoot = false } = {}) {
   const treeData = {
@@ -118,6 +119,25 @@ class TreeView extends React.Component {
         rowHeight={80}
         generateNodeProps={rowInfo => {
           const origin = rowInfo.node.origin;
+          const buttons = [
+            <Popup
+              trigger={<Icon color='blue' name='copy' />}
+              content={'copy'}
+            />,
+            <PopConfirm
+              trigger={<Icon color='blue' name='delete' />}
+              on='click'
+            />
+          ];
+          if(origin.isContainer) {
+            buttons.unshift(
+              <Popup
+                trigger={<Icon color='blue' name='plus' />}
+                content={<Button color='blue' content='child viewTypes' />}
+                on='click'
+              />
+            );
+          }
           return {
             subtitle() {
               const id = origin.attr.get('id');
@@ -126,6 +146,7 @@ class TreeView extends React.Component {
               }
               return '';
             },
+            buttons,
             className: rowInfo.node.selected ?
                 `selected widget-tree-item` : 'widget-tree-item',
             onClick: () => {

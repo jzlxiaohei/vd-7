@@ -5,7 +5,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import history from 'globals/history';
-import Design from './pages/design';
+import Preview from './pages/preview';
 
 
 
@@ -15,7 +15,7 @@ class App extends React.Component {
     return (
       <Router history={history}>
         <Switch>
-          <Route path="/design" component={Design} />
+          <Route path="/" component={Preview} />
         </Switch>
       </Router>
     );

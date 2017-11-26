@@ -2,8 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'semantic-ui-css/semantic.min.css';
 import { AppContainer } from 'react-hot-loader'
-import './styles/index.less';
-import App from './App';
+import AppPreview from './AppPreview';
 
 if(process.env.NODE_ENV !== 'production') {
   const mobx = require('mobx');
@@ -20,11 +19,11 @@ const render = Component => {
   )
 }
 
-render(App)
+render(AppPreview)
 
 if (module.hot) {
-  module.hot.accept('./App', () => {
-    const newApp = require('./App');
+  module.hot.accept('./AppPreview', () => {
+    const newApp = require('./AppPreview');
     render(newApp.default || newApp);
   })
 }

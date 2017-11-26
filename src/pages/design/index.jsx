@@ -32,20 +32,22 @@ class DesignPage extends React.Component {
     this.initMockData();
     const iframe = document.getElementById('preview_page');
     iframe.onload = () => {
-      const snapshot = {
-        ...getSnapshot(this.mainContainer),
-        $isSnapshot: true,
+      const data = {
+        type: 'snapshot',
+        content: getSnapshot(this.mainContainer),
       }
-      iframe.contentWindow.postMessage(snapshot, '*');
+      iframe.contentWindow.postMessage(data, '*');
     }
     onPatch(this.mainContainer, e => {
-      iframe.contentWindow.postMessage(JSON.stringify(e), '*');
+      iframe.contentWindow.postMessage({
+        type: 'patch',
+        content: e,
+      }, '*');
     });
   }
 
 
   initMockData() {
-    // this.button = registerTable.create('button');
     this.mainContainer.push(registerTable.create('button'));
     const innerContainer = registerTable.create('container');
     this.mainContainer
@@ -54,6 +56,15 @@ class DesignPage extends React.Component {
     innerContainer.push(registerTable.create('button'));
   }
 
+  renderEditPanel() {
+    const currentModel = this.selectedModel;
+    const viewType = currentModel.viewType;
+    const EditComp = registerTable.getEdit(viewType);
+    if (EditComp) {
+      return <EditComp model={currentModel}/>;
+    }
+    return null; // TODO: default edit;
+  }
 
   render() {
     return (
@@ -65,7 +76,8 @@ class DesignPage extends React.Component {
           />
         </div>
         <div>
-        <Iframe url="/preview"
+        {this.renderEditPanel()}
+        <Iframe url="/preview.html/preview"
           width="375px"
           height="450px"
           id="preview_page"

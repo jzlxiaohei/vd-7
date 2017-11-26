@@ -12,6 +12,7 @@ class ButtonPreview extends React.Component {
   static propTypes = {
     attr: PropTypes.object.isRequired,
     otherProps: PropTypes.object.isRequired, // className, id, style, onClick等事件
+    extra: PropTypes.node
   }
 
   render() {
@@ -21,6 +22,7 @@ class ButtonPreview extends React.Component {
         {...props.otherProps}
       >
         {props.attr.text}
+        {props.extra}
       </div>
     );
   }

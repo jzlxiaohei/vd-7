@@ -20,10 +20,12 @@ class PreviewPage extends React.Component {
     window.onmessage = e => {
       if(e.data) {
         const data = _.isString(e.data) ? JSON.parse(e.data) : e.data;
-        if(data.$isSnapshot) {
-          applySnapshot(this.mainContainer, data);
-        } else {
-          applyPatch(this.mainContainer, data);
+        const { type, content } = data;
+        if(type === 'snapshot') {
+          applySnapshot(this.mainContainer, content);
+        }
+        if(type === 'patch') {
+          applyPatch(this.mainContainer, content);
         }
       }
     }

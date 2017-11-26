@@ -6,13 +6,8 @@ import cns from 'classnames';
 import { hoistStatics } from 'recompose';
 import invariant from 'invariant';
 import _ from 'lodash';
+import './style.less';
 
-const noChildStyle = {
-  height: '100px',
-  lineHeight: '100px',
-  color: '#f50',
-  textAlign: 'center',
-};
 
 // this hoc is for design, prod should have another one
 function widgetDesign(options) {
@@ -35,7 +30,7 @@ function widgetDesign(options) {
       }
 
       getClassName = () => {
-        return cns(options.className, 'v7_design-view-edit', {
+        return cns(options.className, 'v7_preview-widget', {
           selected: this.props.model.selected,
         });
       }
@@ -81,11 +76,10 @@ function widgetDesign(options) {
       render() {
         const props = this.getProps();
         let childDoms = null;
-        if (!this.props.model.ignoreRenderChildren) {
-          childDoms = (this.props.model.isContainer && props.modelChildren.length ?
-            props.modelChildren.map(child => this.renderChild(child))
-            : [<div style={noChildStyle}>选中容器后，从右侧面板里添加子组件</div>]
-          );
+        if (!this.props.model.ignoreRenderChildren
+          && this.props.model.isContainer && props.modelChildren.length
+        ) {
+          childDoms = props.modelChildren.map(child => this.renderChild(child));
         }
         return (
           <OriginComponent
