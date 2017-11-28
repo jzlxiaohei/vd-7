@@ -2,6 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types'
 import { Card, Icon, Accordion } from 'semantic-ui-react';
+import './edit.less';
 
 @observer
 class ContainerEdit extends React.Component {
