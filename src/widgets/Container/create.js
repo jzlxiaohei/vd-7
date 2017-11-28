@@ -6,6 +6,8 @@ function create(id) {
   const inst = Base.create({
     id,
     viewType:  viewType,
+    styleConfig: {},
+    attrConfig: {},
   })
   // inst.$canAddViewTypes = function(viewTypes) {
 

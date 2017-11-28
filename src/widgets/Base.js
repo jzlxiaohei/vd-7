@@ -6,19 +6,35 @@ import _ from 'lodash';
 //   v: types.string,
 // })
 
+
+function getDefaultValueByConfig(config) {
+  const result = {};
+  const keys = _.keys(config);
+  keys.forEach((key) => {
+    result[key] = ('value' in config[key]) ? config[key].value : '';
+  });
+  return result;
+}
+
+function returnEmptyObj() {
+  return {}
+}
+
 // id, viewType, isContainer 设置了就不会变
 const WidgetBase = types.model('WidgetBase', {
   id: types.identifier(types.string),
   viewType: types.string,
   isContainer: types.optional(types.boolean, true),
-  style: types.optional(types.map(types.string), () => ({})),
-  attr: types.optional(types.map(types.string), () => ({})),
-  dataAttr: types.optional(types.map(types.string), () => ({})),
+  style: types.optional(types.map(types.string), returnEmptyObj),
+  attr: types.optional(types.map(types.string), returnEmptyObj),
+  dataAttr: types.optional(types.map(types.string), returnEmptyObj),
   cssText: types.optional(types.string, ''),
   jsText: types.optional(types.string, ''),
   children: types.optional(types.array(types.late(() => WidgetBase)), []), // array of WidgetBase, maybe type.late is better,
   selected: types.optional(types.boolean, false),
   expanded: types.optional(types.boolean, true),
+  // attrConfig: types.optional(types.frozen, returnEmptyObj),
+  // styleConfig: types.optional(types.frozen, returnEmptyObj),
 })
 .views(self => {
   return {
@@ -40,6 +56,15 @@ const WidgetBase = types.model('WidgetBase', {
     },
     initConfig(attrConfig, styleConfig) {
       // TODO:
+      const attr = getDefaultValueByConfig(
+        {
+          ...attrConfig,
+          id: { title: 'Custom ID'}
+        }
+      );
+      const style = getDefaultValueByConfig(styleConfig);
+      self.assignAttr(attr);
+      self.assignStyle(style);
     },
     setExpanded(expanded) {
       self.expanded = expanded;
@@ -85,6 +110,21 @@ const WidgetBase = types.model('WidgetBase', {
     }
   }
 });
+
+const oldCreate = WidgetBase.create.bind(WidgetBase);
+WidgetBase.create = function(initialValue) {
+  if(!initialValue.styleConfig) {
+    throw new Error('styleConfig is required. use empty object ({}) if not config');
+  }
+  if(!initialValue.attrConfig) {
+    throw new Error('attrConfig is required. use empty object ({}) if not config');
+  }
+  const inst = oldCreate(
+    _.omit(initialValue, ['styleConfig', 'attrConfig'])
+  );
+  inst.initConfig(initialValue.attrConfig, initialValue.styleConfig);
+  return inst;
+}
 
 // WidgetBase.getDefaultSnapshot = function() {
 //   return {

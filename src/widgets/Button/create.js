@@ -7,10 +7,19 @@ function create(id) {
     id,
     viewType:  viewType,
     isContainer: false,
+    attrConfig: {
+      text: {
+        value: 'button text',
+      }
+    },
+    styleConfig: {
+      color: {
+        type: 'color',
+        value: 'red',
+      }
+    }
   });
-  instance.assignAttr({
-    text: 'button',
-  })
+
   return instance;
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types'
-import { Card, Icon, Tab, Accordion } from 'semantic-ui-react';
+import { Card, Icon, Accordion } from 'semantic-ui-react';
 
 @observer
 class ContainerEdit extends React.Component {
