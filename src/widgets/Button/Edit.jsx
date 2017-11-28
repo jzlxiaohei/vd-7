@@ -19,7 +19,7 @@ class ButtonEdit extends React.Component {
 
   render() {
     return (
-      <Card>
+      <Card fluid>
         <Card.Content>
           <Card.Header className="edit-card-header">
             Button

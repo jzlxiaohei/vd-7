@@ -3,10 +3,17 @@ import Base from '../Base';
 const viewType = 'container';
 
 function create(id) {
-  return Base.create({
+  const inst = Base.create({
     id,
     viewType:  viewType,
   })
+  // inst.$canAddViewTypes = function(viewTypes) {
+
+  // }
+  // inst.$canBeAddedTo = function(containerModel, viewTypes) {
+
+  // }
+  return inst;
 }
 
 create.viewType = viewType;

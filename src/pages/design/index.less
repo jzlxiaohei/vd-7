@@ -1,25 +1,43 @@
 #design-page {
   font-size: 16PX;
-  .widget-tree-item {
-    &.selected {
-      outline: solid 8px #fc6421;
-    }
-    .rst__rowTitleWithSubtitle {
-      height: auto;
-    }
-    .ui input {
-      width: 80px;
-      font-size: 12px;
-      padding: 0 3px;
-      height: 20px;
-    }
-    .ui.label{
-      padding: 0 3px;
-      line-height: 20px;
-      font-size: 12px;
+  display: flex;
+  height: 100%;
+  .tree-view-area {
+    flex: 0 0 500PX;
+    background: #f2f2f2;
+    height: 100%;
+    .widget-tree-item {
+      &.selected {
+        outline: solid 8px #fc6421;
+      }
+      .rst__rowTitleWithSubtitle {
+        height: auto;
+      }
+      .ui input {
+        width: 80px;
+        font-size: 12px;
+        padding: 0 3px;
+        height: 20px;
+      }
+      .ui.label{
+        padding: 0 3px;
+        line-height: 20px;
+        font-size: 12px;
+      }
     }
   }
-  .ui.card, .ui.cards > .card {
-    width: 100%;
+
+  .preview-area {
+    iframe {
+      border: 1px solid #ccc;
+    }
   }
+
+  .edit-area {
+    flex: 1;
+    // .ui.card, .ui.cards > .card {
+    //   width: 100%;
+    // }
+  }
+
 }

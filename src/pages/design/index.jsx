@@ -30,7 +30,7 @@ class DesignPage extends React.Component {
 
   componentDidMount() {
     this.initMockData();
-    const iframe = document.getElementById('preview_page');
+    const iframe = document.getElementById('preview-iframe-page');
     iframe.onload = () => {
       const data = {
         type: 'snapshot',
@@ -61,7 +61,7 @@ class DesignPage extends React.Component {
     const viewType = currentModel.viewType;
     const EditComp = registerTable.getEdit(viewType);
     if (EditComp) {
-      return <EditComp model={currentModel}/>;
+      return <EditComp model={currentModel} registerTable={registerTable} />;
     }
     return null; // TODO: default edit;
   }
@@ -69,21 +69,24 @@ class DesignPage extends React.Component {
   render() {
     return (
       <div className="design-page" id="design-page">
-        <div style={{ height: 400 }}>
+        <div className="tree-view-area">
           <TreeView
             treeRoot={this.mainContainer}
             setSelectedModel={this.setSelectedModel}
           />
         </div>
-        {this.renderEditPanel()}
-        <div classNam="iframe-preview">
-        <Iframe url="/preview.html/preview"
-          width="375px"
-          height="450px"
-          id="preview_page"
-          display="initial"
-          position="relative"
-          allowFullScreen/>
+        <div className="edit-area">
+          {this.renderEditPanel()}
+        </div>
+        <div className="preview-area">
+          <Iframe
+            url="/preview.html/preview"
+            width="375px"
+            height="667px"
+            id="preview-iframe-page"
+            display="initial"
+            position="relative"
+          />
         </div>
       </div>
     )
