@@ -34,24 +34,6 @@ class ContainerEdit extends React.Component {
     )
   }
 
-  // renderChildren() {
-  //   const { model, registerTable } = this.props;
-  //   const panes = model.children.map((ch, index) => {
-  //     const EditComp = registerTable.getEdit(ch.viewType);
-  //     return {
-  //       menuItem: `${ch.viewType}_${index+1}`,
-  //       render: () => (
-  //         <div className="edit-wrapper">
-  //           <EditComp model={ch} registerTable={registerTable} />
-  //         </div>
-  //       ),
-  //     }
-  //   })
-  //   return (
-  //     <Tab panes={panes} menu={{ pointing: true }} />
-  //   )
-  // }
-
   handleAccordionClick = (key) => {
     const accordionStates = this.state.accordionStates;
     const value = accordionStates[key];

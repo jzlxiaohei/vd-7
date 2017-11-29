@@ -2,7 +2,7 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types'
 import { Card } from 'semantic-ui-react'
-import FormInput from 'comps/form-item/Input';
+import PropertyEditor from 'comps/property-editor';
 
 @observer
 class ButtonEdit extends React.Component {
@@ -17,6 +17,17 @@ class ButtonEdit extends React.Component {
     })
   }
 
+  /*
+    <FormInput
+      model={this.props.model.attr}
+      path="text"
+      onChange={this.handleAttrChange}
+      getValue={(model, path) => model.get(path)}
+    />
+   */
+
+
+
   render() {
     return (
       <Card fluid>
@@ -26,11 +37,10 @@ class ButtonEdit extends React.Component {
           </Card.Header>
         </Card.Content>
         <Card.Content extra>
-          <FormInput
-            model={this.props.model.attr}
-            path="text"
-            onChange={this.handleAttrChange}
-            getValue={(model, path) => model.get(path)}
+          <PropertyEditor
+            model={this.props.model}
+            onChange={this.handleAttrCellValueChange}
+            config={this.props.model.attrConfig}
           />
         </Card.Content>
       </Card>

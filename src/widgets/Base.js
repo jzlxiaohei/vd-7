@@ -113,16 +113,22 @@ const WidgetBase = types.model('WidgetBase', {
 
 const oldCreate = WidgetBase.create.bind(WidgetBase);
 WidgetBase.create = function(initialValue) {
-  if(!initialValue.styleConfig) {
-    throw new Error('styleConfig is required. use empty object ({}) if not config');
-  }
-  if(!initialValue.attrConfig) {
+  const { styleConfig, attrConfig } = initialValue;
+
+  if(!attrConfig) {
     throw new Error('attrConfig is required. use empty object ({}) if not config');
   }
+
+  if(!styleConfig) {
+    throw new Error('styleConfig is required. use empty object ({}) if not config');
+  }
+
   const inst = oldCreate(
     _.omit(initialValue, ['styleConfig', 'attrConfig'])
   );
-  inst.initConfig(initialValue.attrConfig, initialValue.styleConfig);
+  inst.attrConfig = attrConfig;
+  inst.styleConfig = styleConfig;
+  inst.initConfig(attrConfig, styleConfig);
   return inst;
 }
 
