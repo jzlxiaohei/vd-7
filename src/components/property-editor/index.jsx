@@ -25,7 +25,6 @@ class TableKvEditor extends React.Component {
     valueTitle: PropTypes.string,
     hideHeader: PropTypes.bool,
     getValue: PropTypes.func,
-    onChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {

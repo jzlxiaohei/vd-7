@@ -20,7 +20,7 @@ class ColorPicker extends React.Component {
     return (
       <CompactPicker
         {...this.props.itemProps}
-        {..._.pick(this.props, ['value'])}
+        color={this.props.value}
         onChange={this.handleChange}
       />
     );
