@@ -8,6 +8,7 @@ import invariant from 'invariant';
 import _ from 'lodash';
 import './style.less';
 
+const PreviewSpecialClassName= 'v7_preview-widget';
 
 // this hoc is for design, prod should have another one
 function widgetDesign(options) {
@@ -18,19 +19,18 @@ function widgetDesign(options) {
   }
 
   const hoc = (OriginComponent) => {
-    @observer
     class WidgetComponent extends React.Component {
 
       displayName = `WidgetComponent_${options.className}`
 
       static propTypes = {
         model: PropTypes.object.isRequired,
-        setCurrentSelectedModel: PropTypes.func,
+        setSelectedModel: PropTypes.func.isRequired,
         registerTable: PropTypes.object.isRequired,
       }
 
       getClassName = () => {
-        return cns(options.className, 'v7_preview-widget', {
+        return cns(options.className, PreviewSpecialClassName, {
           selected: this.props.model.selected,
         });
       }
@@ -38,7 +38,7 @@ function widgetDesign(options) {
       getProps = () => {
         const { model } = this.props;
         const otherProps = _.omit(this.props, [
-          'model', 'setCurrentSelectedModel',
+          'model', 'setSelectedModel',
           'onClick', 'registerTable',
         ]);
         otherProps.className = this.getClassName();
@@ -62,14 +62,23 @@ function widgetDesign(options) {
           <ShowWidget
             key={childModel.id}
             model={childModel}
-            setCurrentSelectedModel={this.props.setCurrentSelectedModel}
+            setSelectedModel={this.props.setSelectedModel}
             registerTable={this.props.registerTable}
           />
         );
       }
 
-      handleClick = () => {
-
+      handleClick = (e) => {
+        const currentDom = e.currentTarget;
+        if (currentDom.classList.contains(PreviewSpecialClassName)) {
+          if (!e.nativeEvent.$view7_childSelected
+            || this.props.model.takeOverChildrenEditor
+          ) {
+            this.props.setSelectedModel(this.props.model);
+            // eslint-disable-next-line no-param-reassign
+            e.nativeEvent.$view7_childSelected = true;
+          }
+        }
       }
 
 
@@ -92,7 +101,7 @@ function widgetDesign(options) {
 
     WidgetComponent.WrappedComponent = OriginComponent;
     WidgetComponent.$options = options;
-    return WidgetComponent;
+    return observer(WidgetComponent);
   };
 
   return hoistStatics(hoc);

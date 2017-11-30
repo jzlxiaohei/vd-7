@@ -3,10 +3,25 @@ import { observer } from 'mobx-react';
 import { extendObservable, action } from 'mobx';
 import { getSnapshot, onPatch } from 'mobx-state-tree';
 import Iframe from 'react-iframe';
+import _ from 'lodash';
 import registerTable from 'globals/registerTable';
 import TreeView from './TreeView';
 import './index.less';
 
+function findModelById(root, id) {
+  if(root.id === id) {
+    return root;
+  }
+  for(let i=0; i < root.children.length; i++){
+    const item = root.children[i];
+    const foundOne = findModelById(item, id)
+    if (foundOne) {
+      return foundOne;
+    }
+  }
+
+  return null;
+}
 
 @observer
 class DesignPage extends React.Component {
@@ -44,6 +59,16 @@ class DesignPage extends React.Component {
         content: e,
       }, '*');
     });
+    window.onmessage = e => {
+      if(e.data) {
+        const data = _.isString(e.data) ? JSON.parse(e.data) : e.data;
+        const { type, content } = data;
+        if(type === 'selectModel') {
+          const model = findModelById(this.mainContainer, content.id);
+          this.setSelectedModel(model);
+        }
+      }
+    }
   }
 
 
