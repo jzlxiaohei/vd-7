@@ -15,6 +15,7 @@ function create(id) {
   // inst.$canBeAddedTo = function(containerModel, viewTypes) {
 
   // }
+  // inst.takeOverChildrenEditor = true;
   return inst;
 }
 

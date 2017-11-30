@@ -78,7 +78,6 @@ class TreeView extends React.Component {
       const prevParentNode = findById(treeData, prevParentId);
       prevParentNode.origin.removeChild(node.origin);
       nextParentNode.origin.reassignChildren(nextParentNode.children.map(ch => ch.origin))
-
     }
   }
 

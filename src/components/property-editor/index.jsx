@@ -68,8 +68,8 @@ class TableKvEditor extends React.Component {
       const FormItem = this.getFormComp(configItem.type);
       return (
         <Table.Row className="table-edit-row" key={key}>
-          <Table.Cell>{title}</Table.Cell>
-          <Table.Cell>
+          <Table.Cell className="key-col">{title}</Table.Cell>
+          <Table.Cell className="val-col">
             <FormItem
               model={property}
               path={key}

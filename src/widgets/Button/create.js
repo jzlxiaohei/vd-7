@@ -16,6 +16,10 @@ function create(id) {
       color: {
         type: 'color',
         value: 'red',
+      },
+      backgroundColor: {
+        type: 'color',
+        value: '',
       }
     }
   });
