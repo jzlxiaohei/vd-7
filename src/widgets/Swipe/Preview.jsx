@@ -28,14 +28,14 @@ class InnerComp extends React.Component {
   }
 
   componentWillUnmount() {
-    this.destroy()
+    this.destroy();
   }
 
   render() {
     return (
       <div
         className="slick-container"
-        ref={el => this.containerRef=el}
+        ref={el => this.containerRef = el}
       >
         {
           (this.props.childNodes).map((ch, index) => <div className="slick-item" key={index}>{ch}</div>)
@@ -60,14 +60,6 @@ class SwipePreview extends React.Component {
   static defaultProps = {
     childNodes: [],
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if(this.props.childNodes.length !== prevProps.childNodes.length) {
-  //     this.destroy();
-  //     this.init();
-  //   }
-  // }
-
 
   render() {
     const props = this.props;
