@@ -5,6 +5,7 @@ import { getSnapshot, onPatch } from 'mobx-state-tree';
 import Iframe from 'react-iframe';
 import _ from 'lodash';
 import registerTable from 'globals/registerTable';
+import EditTemplate from 'comps/edit-template';
 import TreeView from './TreeView';
 import './index.less';
 
@@ -84,7 +85,7 @@ class DesignPage extends React.Component {
   renderEditPanel() {
     const currentModel = this.selectedModel;
     const viewType = currentModel.viewType;
-    const EditComp = registerTable.getEdit(viewType);
+    const EditComp = registerTable.getEdit(viewType) || EditTemplate;
     if (EditComp) {
       return <EditComp model={currentModel} registerTable={registerTable} />;
     }

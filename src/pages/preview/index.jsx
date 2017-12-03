@@ -1,6 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import { extendObservable, action } from 'mobx';
+import { action } from 'mobx';
 import { applySnapshot, applyPatch } from 'mobx-state-tree';
 import registerTable from 'globals/registerTable';
 import _ from 'lodash';
@@ -11,17 +11,9 @@ class PreviewPage extends React.Component {
   constructor(props) {
     super(props);
     this.mainContainer = registerTable.create('container', 'mainContainer');
-    // extendObservable(this, {
-    //   selectedModel: this.mainContainer,
-    // });
   }
 
   setSelectedModel = action((newSelectedModel) => {
-    // if (this.selectedModel) {
-    //   this.selectedModel.setSelected(false);
-    // }
-    // newSelectedModel.setSelected(true);
-    // this.selectedModel = newSelectedModel;
     window.parent.postMessage({
       type: 'selectModel',
       content: {

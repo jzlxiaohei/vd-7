@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 // import PropTypes from 'prop-types'
-import _ from 'lodash';
 import { CompactPicker } from 'react-color';
 import item from './hoc/item';
 

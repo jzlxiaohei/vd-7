@@ -85,7 +85,7 @@ class TableKvEditor extends React.Component {
   render() {
     const { attr, attrConfig, style, styleConfig } = this.props.model;
     return (
-      <div className="comp-table-kv-editor">
+      <div className="comp-property-editor">
         <Table celled collapsing basic='very'>
           <Table.Body>
             {this.renderRows(attr, attrConfig, 'assignAttr')}
