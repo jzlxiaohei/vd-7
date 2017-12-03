@@ -108,7 +108,7 @@ class EditTemplate extends React.Component {
               <PropertyEditor {...this.props} />
             )
           }
-
+          {this.renderExtra()}
           {
             model.isContainer ?
               this.renderAccordionItem(
