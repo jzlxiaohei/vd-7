@@ -84,7 +84,7 @@ function widgetDesign(options) {
 
       render() {
         const props = this.getProps();
-        let childDoms = null;
+        let childDoms;
         if (!this.props.model.ignoreRenderChildren
           && this.props.model.isContainer && props.modelChildren.length
         ) {

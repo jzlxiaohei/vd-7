@@ -76,8 +76,11 @@ class DesignPage extends React.Component {
   initMockData() {
     this.mainContainer.push(registerTable.create('button'));
     const innerContainer = registerTable.create('container');
-    this.mainContainer
-      .push(innerContainer);
+    const swipe = registerTable.create('swipe')
+    this.mainContainer.push(innerContainer);
+    this.mainContainer.push(swipe);
+    swipe.push(registerTable.create('button'));
+    swipe.push(registerTable.create('button'));
     innerContainer.push(registerTable.create('button'));
     innerContainer.push(registerTable.create('button'));
   }
