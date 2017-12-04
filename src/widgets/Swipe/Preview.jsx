@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import preview from 'hoc/preview';
-// import ReactSwipe from 'react-swipe';
 import Siema from './siema';
-// import { Carousel } from 'react-responsive-carousel';
-// import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './style.less';
 
 class InnerComp extends React.Component {
