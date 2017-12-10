@@ -16,6 +16,7 @@ function create(id) {
 
   // }
   // inst.takeOverChildrenEditor = true;
+  inst.icon = 'folder-open-o';
   return inst;
 }
 

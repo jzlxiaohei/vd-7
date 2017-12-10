@@ -36,6 +36,7 @@ class DesignPage extends React.Component {
     const innerContainer = registerTable.create('container');
     const swipe = registerTable.create('swipe')
     this.mainContainer.push(innerContainer);
+    this.mainContainer.push(registerTable.create('picture'));
     this.mainContainer.push(swipe);
     swipe.push(registerTable.create('button'));
     swipe.push(registerTable.create('button'));

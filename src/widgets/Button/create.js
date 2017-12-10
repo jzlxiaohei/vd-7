@@ -3,7 +3,7 @@ import Base from '../Base';
 const viewType = 'button';
 
 function create(id) {
-  const instance = Base.create({
+  const inst = Base.create({
     id,
     viewType:  viewType,
     isContainer: false,
@@ -23,8 +23,9 @@ function create(id) {
       }
     }
   });
+  inst.icon = 'square';
 
-  return instance;
+  return inst;
 }
 
 create.viewType = viewType;

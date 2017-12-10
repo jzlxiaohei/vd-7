@@ -3,12 +3,21 @@ import { observer } from 'mobx-react';
 import PropTypes from 'prop-types'
 import _ from 'lodash';
 import  SortableTree from 'react-sortable-tree';
-import { Button, Popup, Icon } from 'semantic-ui-react'
+import { Popup, Icon } from 'semantic-ui-react'
 import PopConfirm from 'comps/pop-confirm';
 
 function getTreeData(json, { isRoot = false } = {}) {
+  let title = <div>{json.viewType}</div>;
+  if (json.icon) {
+    title = (
+      <div>
+        <i className={`fa fa-${json.icon}`}></i>
+        {json.viewType}
+      </div>
+    );
+  }
   const treeData = {
-    title: json.viewType,
+    title,
     subtitle: json.viewType,
     expanded: json.expanded,
     selected: json.selected,
@@ -59,7 +68,6 @@ class TreeView extends React.Component {
     ]
   }
 
-  handleTreeDataChange = () => {}
 
   handleMoveNode = (data) => {
     const { prevPath, nextPath, nextTreeIndex, prevTreeIndex, treeData, node } = data;
@@ -128,15 +136,6 @@ class TreeView extends React.Component {
               on='click'
             />
           ];
-          if(origin.isContainer) {
-            buttons.unshift(
-              <Popup
-                trigger={<Icon color='blue' name='plus' />}
-                content={<Button color='blue' content='child viewTypes' />}
-                on='click'
-              />
-            );
-          }
           return {
             subtitle() {
               const id = origin.attr.get('id');

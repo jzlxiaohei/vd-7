@@ -9,6 +9,7 @@ function create(id) {
     styleConfig: {},
     attrConfig: {},
   })
+  inst.icon = 'exchange';
 
   return inst;
 }
