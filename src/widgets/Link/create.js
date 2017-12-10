@@ -1,6 +1,6 @@
 import Base from '../Base';
 
-const viewType = 'container';
+const viewType = 'link';
 
 function create(id) {
   const inst = Base.create({
@@ -8,15 +8,16 @@ function create(id) {
     viewType:  viewType,
     styleConfig: {},
     attrConfig: {
-      inline: {
-        type: 'bool',
-        value: false,
+      text: {
+        value: '',
+      },
+      link: {
+        value: '',
       },
     },
   })
 
-  // inst.takeOverChildrenEditor = true;
-  inst.icon = 'folder-open-o';
+  inst.icon = 'link';
   return inst;
 }
 

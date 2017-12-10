@@ -37,6 +37,8 @@ class DesignPage extends React.Component {
     const swipe = registerTable.create('swipe')
     this.mainContainer.push(innerContainer);
     this.mainContainer.push(registerTable.create('picture'));
+    this.mainContainer.push(registerTable.create('link'));
+
     this.mainContainer.push(swipe);
     swipe.push(registerTable.create('button'));
     swipe.push(registerTable.create('button'));
@@ -62,11 +64,14 @@ class DesignPage extends React.Component {
           />
         </div>
         <div className="preview-area">
-          <Container
-            model={this.mainContainer}
-            registerTable={registerTable}
-            setSelectedModel={this.setSelectedModel}
-          />
+          <div className="phone">
+            <Container
+              model={this.mainContainer}
+              registerTable={registerTable}
+              setSelectedModel={this.setSelectedModel}
+            />
+          </div>
+
         </div>
         <div className="edit-area">
           {this.renderEditPanel()}
