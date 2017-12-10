@@ -7,14 +7,20 @@ function create(id) {
     id,
     viewType:  viewType,
     styleConfig: {},
-    attrConfig: {},
+    attrConfig: {
+      inline: {
+        type: 'bool',
+        value: false,
+      },
+      cols: {
+        value: 0,
+        show(model) {
+          return model.attr.get('inline');
+        },
+      }
+    },
   })
-  // inst.$canAddViewTypes = function(viewTypes) {
 
-  // }
-  // inst.$canBeAddedTo = function(containerModel, viewTypes) {
-
-  // }
   // inst.takeOverChildrenEditor = true;
   inst.icon = 'folder-open-o';
   return inst;

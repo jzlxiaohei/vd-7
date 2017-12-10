@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import preview from 'hoc/preview';
+import style from './style.less';
 
 @preview({
   className: 'v7_container',
-  style: false,
+  style,
 })
 class ContainerPreview extends React.Component {
 
@@ -15,9 +16,14 @@ class ContainerPreview extends React.Component {
 
   render() {
     const props = this.props;
+    let className = props.otherProps.className;
+    if (props.attr.inline) {
+      className += ' inline';
+    }
     return (
       <div
         {...props.otherProps}
+        className={className}
       >
         {props.childNodes}
       </div>

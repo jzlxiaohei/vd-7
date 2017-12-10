@@ -20,13 +20,15 @@ function returnEmptyObj() {
   return {}
 }
 
+const BasicValue = types.union(types.string, types.boolean, types.number);
+
 // id, viewType, isContainer 设置了就不会变
 const WidgetBase = types.model('WidgetBase', {
   id: types.identifier(types.string),
   viewType: types.string,
   isContainer: types.optional(types.boolean, true),
-  style: types.optional(types.map(types.string), returnEmptyObj),
-  attr: types.optional(types.map(types.string), returnEmptyObj),
+  style: types.optional(types.map(BasicValue), returnEmptyObj),
+  attr: types.optional(types.map(BasicValue), returnEmptyObj),
   dataAttr: types.optional(types.map(types.string), returnEmptyObj),
   cssText: types.optional(types.string, ''),
   jsText: types.optional(types.string, ''),

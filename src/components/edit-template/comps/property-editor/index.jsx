@@ -2,12 +2,13 @@ import React from 'react';
 import { observer, PropTypes as mPropTypes } from 'mobx-react';
 import PropTypes from 'prop-types'
 import { Table } from 'semantic-ui-react';
-// import _ from 'lodash';
-import { FormInput, FormColor } from 'comps/form-item';
+import _ from 'lodash';
+import { FormInput, FormColor, FormCheckbox } from 'comps/form-item';
 import './style.less';
 
 const FormTypeMap = {
   color: FormColor,
+  bool: FormCheckbox,
   default: FormInput,
 }
 
@@ -65,6 +66,12 @@ class TableKvEditor extends React.Component {
     return property.keys().map(key => {
       const configItem = config[key] || {};
       const title = configItem.title || key;
+      const show = configItem.show;
+      if(_.isFunction(show)) {
+        if (!show(this.props.model)) {
+          return null;
+        }
+      }
       const FormItem = this.getFormComp(configItem.type);
       return (
         <Table.Row className="table-edit-row" key={key}>
