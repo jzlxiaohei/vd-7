@@ -15,7 +15,7 @@ const entries = require('./entries');
 
 const publicPath = paths.servedPath;
 const shouldUseRelativeAssetPaths = publicPath === './';
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+const shouldUseSourceMap = false; //process.env.GENERATE_SOURCEMAP !== 'false';
 const publicUrl = publicPath.slice(0, -1);
 
 const env = getClientEnvironment(publicUrl);
@@ -93,7 +93,7 @@ module.exports = {
             },
           },
           {
-            test: /\.css$/,
+            test: /\.(css|less)$/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
@@ -112,6 +112,7 @@ module.exports = {
                         sourceMap: shouldUseSourceMap,
                       },
                     },
+
                     {
                       loader: require.resolve('postcss-loader'),
                       options: {
@@ -131,6 +132,9 @@ module.exports = {
                           }),
                         ],
                       },
+                    },
+                    {
+                      loader: require.resolve('less-loader') // compiles Less to CSS
                     },
                   ],
                 },
