@@ -60,8 +60,8 @@ const WidgetBase = types.model('WidgetBase', {
       // TODO:
       const attr = getDefaultValueByConfig(
         {
+          id: { title: 'Custom ID'},
           ...attrConfig,
-          id: { title: 'Custom ID'}
         }
       );
       const style = getDefaultValueByConfig(styleConfig);
@@ -77,6 +77,10 @@ const WidgetBase = types.model('WidgetBase', {
     push(model) {
       self.children.push(model);
     },
+    remove() {
+      const parent = self.getParent();
+      parent.removeChild(self);
+    },
     removeChildByIndex(index) {
       detach(self.children[index]);
     },
@@ -88,17 +92,29 @@ const WidgetBase = types.model('WidgetBase', {
     },
     assignStyle(_style) {
       _.forOwn(_style, (val, key) => {
-        self.style.set(key, val);
+        if(val === '$d') {
+          self.style.delete(key)
+        } else {
+          self.style.set(key, val);
+        }
       })
     },
     assignAttr(_attr) {
       _.forOwn(_attr, (val, key) => {
-        self.attr.set(key, val);
+        if(val === '$d') {
+          self.attr.delete(key)
+        } else {
+          self.attr.set(key, val);
+        }
       })
     },
     assignDataAttr(_dataAttr) {
       _.forOwn(_dataAttr, (val, key) => {
-        self.dataAttr.set(key, val);
+        if(val === '$d') {
+          self.dataAttr.delete(key)
+        } else {
+          self.dataAttr.set(key, val);
+        }
       })
     },
     // sortChildren(oldIndex, newIndex) {
@@ -128,9 +144,14 @@ WidgetBase.create = function(initialValue) {
   const inst = oldCreate(
     _.omit(initialValue, ['styleConfig', 'attrConfig'])
   );
-  inst.attrConfig = attrConfig;
+  const _attrConfig = {
+    ...attrConfig,
+    draggable: { type: 'bool', value: false },
+  };
+  console.log(_attrConfig);
+  inst.attrConfig = _attrConfig;
   inst.styleConfig = styleConfig;
-  inst.initConfig(attrConfig, styleConfig);
+  inst.initConfig(inst.attrConfig, inst.styleConfig);
   return inst;
 }
 

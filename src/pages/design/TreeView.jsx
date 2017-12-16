@@ -3,7 +3,8 @@ import { observer } from 'mobx-react';
 import PropTypes from 'prop-types'
 import _ from 'lodash';
 import  SortableTree from 'react-sortable-tree';
-import { Popup, Icon } from 'semantic-ui-react'
+// import { Popup, Icon } from 'semantic-ui-react'
+import { Icon } from 'semantic-ui-react'
 import PopConfirm from 'comps/pop-confirm';
 
 function getTreeData(json, { isRoot = false } = {}) {
@@ -113,6 +114,10 @@ class TreeView extends React.Component {
     })
   }
 
+  handleRemove = item => {
+    item.remove();
+  }
+
   render() {
     return (
       <SortableTree
@@ -127,11 +132,12 @@ class TreeView extends React.Component {
         generateNodeProps={rowInfo => {
           const origin = rowInfo.node.origin;
           const buttons = [
-            <Popup
-              trigger={<Icon color='blue' name='copy' />}
-              content={'copy'}
-            />,
+            // <Popup
+            //   trigger={<Icon color='blue' name='copy' />}
+            //   content={'copy'}
+            // />,
             <PopConfirm
+              onConfirm={() => this.handleRemove(origin)}
               trigger={<Icon color='blue' name='delete' />}
               on='click'
             />

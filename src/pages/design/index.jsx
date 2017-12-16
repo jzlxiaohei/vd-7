@@ -12,6 +12,7 @@ class DesignPage extends React.Component {
   constructor(props) {
     super(props);
     this.mainContainer = registerTable.create('container', 'mainContainer');
+    this.initMainContainer();
     extendObservable(this, {
       selectedModel: this.mainContainer,
     });
@@ -30,6 +31,11 @@ class DesignPage extends React.Component {
     this.initMockData();
   }
 
+  initMainContainer() {
+    this.mainContainer.assignAttr({
+      draggable: '$d',
+    })
+  }
 
   initMockData() {
     this.mainContainer.push(registerTable.create('button'));
@@ -64,7 +70,7 @@ class DesignPage extends React.Component {
           />
         </div>
         <div className="preview-area">
-          <div className="phone">
+          <div className="phone" id="phone">
             <Container
               model={this.mainContainer}
               registerTable={registerTable}
