@@ -117,7 +117,7 @@ class TreeView extends React.Component {
     return (
       <SortableTree
         treeData={this.convertToTreeData()}
-        onChange={treeData => this.handleTreeDataChange({ treeData })}
+        onChange={treeData => this.handleMoveNode({ treeData })}
         onVisibilityToggle={this.handleVisibilityToggle}
         onMoveNode={this.handleMoveNode}
         getNodeKey={item => item.node.id}
