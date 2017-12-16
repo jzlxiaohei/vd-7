@@ -9,7 +9,7 @@ function create(id) {
     styleConfig: {},
     attrConfig: {
       text: {
-        value: '',
+        value: 'link text',
       },
       link: {
         value: '',
