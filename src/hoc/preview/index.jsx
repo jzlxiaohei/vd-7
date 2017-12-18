@@ -43,9 +43,9 @@ function widgetDesign(options) {
         const model = this.props.model;
         this.disposeActon = onAction(model, call => {
           if (call.name === 'assignAttr' && call.path === '') {
-            // const oldValue = model.attr.get('draggable');
+            const oldValue = model.attr.get('draggable');
             const newValue = call.args[0].draggable;
-            if (newValue === true) {
+            if (oldValue === false && newValue === true) {
               const rect = this.designDom.getBoundingClientRect();
               const { height, top, left, width }= rect;
               this.setState({
@@ -64,10 +64,9 @@ function widgetDesign(options) {
                 top: top - parentRect.top,
                 left: left - parentRect.left,
               })
-              // this.dragHandler = document.createElement('div');
-              // this.dragHandler.classList.add('drag-handler');
-              // this.designDom.appendChild(this.dragHandler);
-            } else {
+
+            }
+            if (oldValue === true && newValue === false) {
               model.assignStyle({
                 position: '$d',
                 top: '$d',
