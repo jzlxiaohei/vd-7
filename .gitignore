@@ -28,3 +28,4 @@ dist
 typings/*
 typings.json
 .vscode
+docs
