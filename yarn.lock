@@ -1741,6 +1741,14 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.4:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+create-react-class@^15.5.2:
+  version "15.6.2"
+  resolved "http://registry.npm.taobao.org/create-react-class/download/create-react-class-15.6.2.tgz#cf1ed15f12aad7f14ef5f2dfe05e6c42f91ef02a"
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.3.1"
+    object-assign "^4.1.1"
+
 cross-spawn@5.1.0, cross-spawn@^5.0.1, cross-spawn@^5.1.0:
   version "5.1.0"
   resolved "http://registry.npm.taobao.org/cross-spawn/download/cross-spawn-5.1.0.tgz#e8bd0efee58fcff6f8f94510a0a554bbfa235449"
@@ -2689,7 +2697,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "^2.0.0"
 
-fbjs@^0.8.1, fbjs@^0.8.16:
+fbjs@^0.8.1, fbjs@^0.8.16, fbjs@^0.8.9:
   version "0.8.16"
   resolved "http://registry.npm.taobao.org/fbjs/download/fbjs-0.8.16.tgz#5e67432f550dc41b572bf55847b8aca64e5337db"
   dependencies:
@@ -5521,7 +5529,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.9, prop-types@^15.6.0:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.8, prop-types@^15.5.9, prop-types@^15.6.0:
   version "15.6.0"
   resolved "http://registry.npm.taobao.org/prop-types/download/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5747,6 +5755,14 @@ react-iframe@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/react-iframe/download/react-iframe-1.1.0.tgz#fe0ac2eee934750ddd3fce1993fc97a967711d69"
 
+react-inline-transition-group@^2.1.7:
+  version "2.1.7"
+  resolved "http://registry.npm.taobao.org/react-inline-transition-group/download/react-inline-transition-group-2.1.7.tgz#a9682698f9677b82cd55f3d72cb3ace1cf4fbea2"
+  dependencies:
+    create-react-class "^15.5.2"
+    prop-types "^15.5.8"
+    react-transition-hooks "^1.1.1"
+
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"
   resolved "http://registry.npm.taobao.org/react-proxy/download/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
@@ -5786,6 +5802,13 @@ react-sortable-tree@^1.5.0:
     react-dnd-html5-backend "2.5.4"
     react-dnd-scrollzone "^4.0.0"
     react-virtualized "^9.12.0"
+
+react-transition-hooks@^1.1.1:
+  version "1.1.1"
+  resolved "http://registry.npm.taobao.org/react-transition-hooks/download/react-transition-hooks-1.1.1.tgz#e3042118ab3c9607391bc5fe79b72a989101b457"
+  dependencies:
+    create-react-class "^15.5.2"
+    prop-types "^15.5.8"
 
 react-virtualized@^9.12.0:
   version "9.12.0"

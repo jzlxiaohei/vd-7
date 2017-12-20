@@ -7,9 +7,11 @@ import cns from 'classnames';
 import { hoistStatics } from 'recompose';
 import invariant from 'invariant';
 import _ from 'lodash';
+import Transition from 'react-inline-transition-group';
 import './style.less';
 
 const PreviewSpecialClassName= 'v7_preview-widget';
+
 
 // this hoc is for design, prod should have another one
 function widgetDesign(options) {
@@ -35,8 +37,7 @@ function widgetDesign(options) {
         dragging: false,
         width: 0,
         height: 0,
-        top:0, left: 0,
-        type: '' // '2a' or 'a2'
+        phrase: '',
       }
 
       componentDidMount() {
@@ -54,39 +55,69 @@ function widgetDesign(options) {
                 domWidth: width,
                 height: height,
                 width: width,
-                top,
-                left,
-                type: '2a',
+                phrase: 'make-draggable',
               });
               const parentRect = model.getParent().$designDom.getBoundingClientRect();
               model.assignStyle({
                 position: 'absolute',
                 top: top - parentRect.top,
                 left: left - parentRect.left,
+                zIndex: '999',
               })
 
             }
             if (oldValue === true && newValue === false) {
-              model.assignStyle({
-                position: '$d',
-                top: '$d',
-                left: '$d',
-              })
               const rect = this.designDom.getBoundingClientRect();
-              const { height, top, left, width } = rect;
+              const { height, width } = rect;
               this.setState({
                 dragging: true,
                 domHeight: height,
                 domWidth: width,
                 height: 0,
                 width: 0,
-                top,
-                left,
-                type: 'a2',
+                phrase: 'disable-draggable',
               });
             }
           }
         })
+      }
+
+      handleDragEnd = () =>{
+        this.designDom.ownerDocument.removeEventListener('mousemove', this.handleDrag);
+        this.designDom.ownerDocument.removeEventListener('mouseup', this.handleDragEnd);
+      }
+
+      handleDrag = (e) => {
+        const model = this.props.model;
+        if (model.style.get('position') !== 'absolute') {
+          return;
+        }
+        const { clientX, clientY } = e;
+        const deltaX = clientX - this.lastDragX;
+        const deltaY = clientY - this.lastDragY;
+        this.lastDragX = clientX;
+        this.lastDragY = clientY;
+        const oldTop = parseFloat(model.style.get('top'));
+        const oldLeft = parseFloat(model.style.get('left'));
+        model.assignStyle({
+          top: oldTop + deltaY,
+          left: oldLeft + deltaX,
+        })
+      }
+
+      handelMouseDownForDrag = (e) => {
+        this.lastDragX = e.clientX;
+        this.lastDragY = e.clientY;
+        this.designDom.ownerDocument.addEventListener('mousemove', this.handleDrag);
+        this.designDom.ownerDocument.addEventListener('mouseup', this.handleDragEnd);
+      }
+
+      destroyDrag() {
+        this.designDom.removeEventListener('mousedown', this.handelMouseDownForDrag);
+      }
+
+      initDrag() {
+        this.designDom.addEventListener('mousedown', this.handelMouseDownForDrag);
       }
 
       componentWillUnmount() {
@@ -146,43 +177,56 @@ function widgetDesign(options) {
         }
       }
 
-      renderDragging() {
-        const style = {
-          width: this.state.width,
-          height: this.state.height,
+      handlePhaseEnd = () => {
+        this.setState({
+          dragging: false,
+        });
+        if(this.state.phrase === 'disable-draggable') {
+          this.props.model.assignStyle({
+            position: '$d',
+            top: '$d',
+            left: '$d',
+            zIndex: '$d',
+          });
+          this.destroyDrag();
+        } else {
+          this.initDrag();
         }
-        setTimeout(() => {
-          if (this.state.type === '2a') {
-            this.setState({
-              width: 0,
-              height: 0,
-              type: '',
-            })
-          }
-          if (this.state.type === 'a2') {
-            this.setState({
-              width: this.state.domWidth,
-              height: this.state.domHeight,
-              type: '',
-            })
-          }
-        }, 0)
-        setTimeout(() => {
-          this.setState({
-            dragging: false,
-          })
-        }, 500)
+      }
+
+      renderDragging() {
+        const styles = {
+          base: {
+            width: this.state.width,
+            height: this.state.height,
+          },
+          appear: {
+            transition: 'all 500ms',
+            width: this.state.domWidth - this.state.width,
+            height: this.state.domHeight - this.state.height,
+          },
+          leave: {
+            transition: 'all 250ms',
+          },
+        }
+
         return (
-          <div
-            className="_widget_placeholder"
-            style={style}>
-          </div>
+          <Transition
+            childrenStyles={styles}
+            onPhaseEnd={this.handlePhaseEnd}
+          >
+            <div
+              className="_widget_placeholder"
+            >
+            </div>
+          </Transition>
         )
       }
 
       render() {
+        let placeholderDom = null;
         if (this.state.dragging) {
-          return this.renderDragging();
+          placeholderDom =  this.renderDragging();
         }
         const props = this.getProps();
         let childDoms;
@@ -192,17 +236,20 @@ function widgetDesign(options) {
           childDoms = props.modelChildren.map(child => this.renderChild(child));
         }
         return (
-          <OriginComponent
-            ref={
-              dom => {
-                const realDom = ReactDOM.findDOMNode(dom);
-                this.props.model.$designDom = realDom;
-                this.designDom = realDom;
+          [
+            placeholderDom,
+            <OriginComponent
+              ref={
+                dom => {
+                  const realDom = ReactDOM.findDOMNode(dom);
+                  this.props.model.$designDom = realDom;
+                  this.designDom = realDom;
+                }
               }
-            }
-            childNodes={childDoms}
-            {...props}
-          />
+              childNodes={childDoms}
+              {...props}
+            />,
+          ]
         );
       }
     }
