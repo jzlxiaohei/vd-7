@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import preview from 'hoc/preview';
-import style from './style.less';
 
 @preview({
   className: 'v7_container',
-  style,
 })
 class ContainerPreview extends React.Component {
 

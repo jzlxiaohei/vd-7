@@ -15,7 +15,7 @@ function create(id) {
     styleConfig: {
       color: {
         type: 'color',
-        value: 'red',
+        value: '',
       },
       backgroundColor: {
         type: 'color',

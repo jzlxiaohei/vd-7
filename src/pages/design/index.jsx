@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { extendObservable, action } from 'mobx';
+import { getSnapshot } from 'mobx-state-tree';
 import registerTable from 'globals/registerTable';
 import EditTemplate from 'comps/edit-template';
 import TreeView from './TreeView';
@@ -50,6 +51,7 @@ class DesignPage extends React.Component {
     swipe.push(registerTable.create('button'));
     innerContainer.push(registerTable.create('button'));
     innerContainer.push(registerTable.create('button'));
+    console.log(getSnapshot(this.mainContainer));
   }
 
   renderEditPanel() {

@@ -1,0 +1,156 @@
+{
+  "id": "mainContainer",
+  "viewType": "container",
+  "isContainer": true,
+  "style": {},
+  "attr": {
+    "id": "",
+    "inline": false
+  },
+  "dataAttr": {},
+  "cssText": "",
+  "jsText": "",
+  "children": [{
+    "id": "v7_HyIiNyYfG",
+    "viewType": "button",
+    "isContainer": false,
+    "style": {
+      "color": "red",
+      "backgroundColor": ""
+    },
+    "attr": {
+      "id": "",
+      "text": "button text",
+      "draggable": false
+    },
+    "dataAttr": {},
+    "cssText": "",
+    "jsText": "",
+    "children": []
+  }, {
+    "id": "v7_BkgUsEytGf",
+    "viewType": "container",
+    "isContainer": true,
+    "style": {},
+    "attr": {
+      "id": "",
+      "inline": false,
+      "draggable": false
+    },
+    "dataAttr": {},
+    "cssText": "",
+    "jsText": "",
+    "children": [{
+      "id": "v7_r1U8iEyFMG",
+      "viewType": "button",
+      "isContainer": false,
+      "style": {
+        "color": "red",
+        "backgroundColor": ""
+      },
+      "attr": {
+        "id": "",
+        "text": "button text",
+        "draggable": false
+      },
+      "dataAttr": {},
+      "cssText": "",
+      "jsText": "",
+      "children": []
+    }, {
+      "id": "v7_Syw8jNyYGG",
+      "viewType": "button",
+      "isContainer": false,
+      "style": {
+        "color": "red",
+        "backgroundColor": ""
+      },
+      "attr": {
+        "id": "",
+        "text": "button text",
+        "draggable": false
+      },
+      "dataAttr": {},
+      "cssText": "",
+      "jsText": "",
+      "children": []
+    }]
+  }, {
+    "id": "v7_HJMUs4JYMG",
+    "viewType": "picture",
+    "isContainer": false,
+    "style": {},
+    "attr": {
+      "id": "",
+      "url": "https://avatars1.githubusercontent.com/u/1884248?s=460&v=4",
+      "link": "",
+      "draggable": false
+    },
+    "dataAttr": {},
+    "cssText": "",
+    "jsText": "",
+    "children": []
+  }, {
+    "id": "v7_BJXUs4yKMG",
+    "viewType": "link",
+    "isContainer": true,
+    "style": {},
+    "attr": {
+      "id": "",
+      "text": "link text",
+      "link": "",
+      "draggable": false
+    },
+    "dataAttr": {},
+    "cssText": "",
+    "jsText": "",
+    "children": []
+  }, {
+    "id": "v7_r1Z8o4JKGG",
+    "viewType": "swipe",
+    "isContainer": true,
+    "style": {},
+    "attr": {
+      "id": "",
+      "draggable": false
+    },
+    "dataAttr": {},
+    "cssText": "",
+    "jsText": "",
+    "children": [{
+      "id": "v7_B1ELjVJtfz",
+      "viewType": "button",
+      "isContainer": false,
+      "style": {
+        "color": "red",
+        "backgroundColor": ""
+      },
+      "attr": {
+        "id": "",
+        "text": "button text",
+        "draggable": false
+      },
+      "dataAttr": {},
+      "cssText": "",
+      "jsText": "",
+      "children": []
+    }, {
+      "id": "v7_HkHUsV1Ffz",
+      "viewType": "button",
+      "isContainer": false,
+      "style": {
+        "color": "red",
+        "backgroundColor": ""
+      },
+      "attr": {
+        "id": "",
+        "text": "button text",
+        "draggable": false
+      },
+      "dataAttr": {},
+      "cssText": "",
+      "jsText": "",
+      "children": []
+    }]
+  }]
+}

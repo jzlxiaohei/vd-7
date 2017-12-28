@@ -52,6 +52,7 @@ const WidgetBase = types.model('WidgetBase', {
 .actions(self => {
   return {
     postProcessSnapshot(snapshot) {
+      snapshot.attr = _.omit(snapshot.attr, ['draggable'])
       return _.omit(snapshot, [
         'selected', 'expanded',
       ])
@@ -117,12 +118,6 @@ const WidgetBase = types.model('WidgetBase', {
         }
       })
     },
-    // sortChildren(oldIndex, newIndex) {
-    //   // 拖拽排序
-    //   const list = self.children;
-    //   const moveItem = list.splice(oldIndex, 1)[0];
-    //   list.splice(newIndex, 0, moveItem);
-    // },
     reassignChildren(children) {
       self.children = children;
     }
@@ -148,7 +143,6 @@ WidgetBase.create = function(initialValue) {
     ...attrConfig,
     draggable: { type: 'bool', value: false },
   };
-  console.log(_attrConfig);
   inst.attrConfig = _attrConfig;
   inst.styleConfig = styleConfig;
   inst.initConfig(inst.attrConfig, inst.styleConfig);

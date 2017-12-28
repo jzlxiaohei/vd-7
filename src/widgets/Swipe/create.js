@@ -2,6 +2,7 @@ import Base from '../Base';
 
 const viewType = 'swipe';
 
+
 function create(id) {
   const inst = Base.create({
     id,
@@ -10,6 +11,17 @@ function create(id) {
     attrConfig: {},
   })
   inst.icon = 'exchange';
+
+  const oldPush = inst.push;
+  // mst make inst property readonly...
+  Object.defineProperty(inst, 'push', { writable: true });
+  inst.push = function(model) {
+    model.assignAttr({
+      draggable: '$d',
+    })
+    oldPush(model);
+  };
+  Object.defineProperty(inst, 'push', { writable: false })
 
   return inst;
 }

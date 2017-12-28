@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import preview from 'hoc/preview';
 import Siema from './siema';
-import './style.less';
 
 class InnerComp extends React.Component {
 
@@ -44,7 +43,6 @@ class InnerComp extends React.Component {
 
 @preview({
   className: 'v7_swipe',
-  style: false,
 })
 class SwipePreview extends React.Component {
 
