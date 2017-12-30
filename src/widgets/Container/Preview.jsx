@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import preview from 'hoc/preview';
+import './style.less';
 
 @preview({
-  className: 'v7_container',
+  className: 'v7_container'
 })
 class ContainerPreview extends React.Component {
-
   static propTypes = {
     attr: PropTypes.object.isRequired,
-    otherProps: PropTypes.object.isRequired, // className, id, style, onClick等事件
-  }
+    otherProps: PropTypes.object.isRequired // className, id, style, onClick等事件
+  };
 
   render() {
     const props = this.props;
@@ -19,10 +19,7 @@ class ContainerPreview extends React.Component {
       className += ' inline';
     }
     return (
-      <div
-        {...props.otherProps}
-        className={className}
-      >
+      <div {...props.otherProps} className={className}>
         {props.childNodes}
       </div>
     );
