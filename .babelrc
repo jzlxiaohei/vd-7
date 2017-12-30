@@ -1,14 +1,16 @@
 {
   "presets": [
     [
-      "env"
+      "env",
+      {
+        "modules": false
+      }
     ],
     "stage-2",
     "react"
   ],
   "plugins": [
     "transform-decorators-legacy",
-    ["transform-runtime"],
     ["module-resolver", {
       "root": ["."],
       "alias": {
@@ -21,6 +23,7 @@
         "const": "./src/constants",
         "widgets": "./src/widgets",
         "editWidget": "./src/widget-editor",
+        "hoc/preview": "./src/hoc/preview",
         "hoc": "./src/hoc"
       }
     }]
@@ -28,6 +31,7 @@
   "env": {
     "production": {
       "plugins": [
+        ["lodash", { "id": ["lodash", "recompose"] }],
         "transform-react-constant-elements",
         "transform-react-remove-prop-types",
         ["module-resolver", {
